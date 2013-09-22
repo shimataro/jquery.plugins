@@ -7,14 +7,15 @@
 (function($, window)
 {
 	$.fn.extend({
+		/**
+		 * description
+		 * @function
+		 */
 		skelton: (function($)
 		{
-			/**
-			 * description
-			 * @function
-			 */
 			return function()
 			{
+				// return "this" to enable chain methods
 				return this;
 			};
 		})($)
