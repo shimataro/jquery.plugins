@@ -4,10 +4,15 @@
 		<meta charset="UTF-8" />
 		<title>Example of jquery.labels</title>
 		<style type="text/css">
-label.target
+label.checkbox
 {
 	color: blue;
 	background-color: red;
+}
+label.radio
+{
+	color: red;
+	background-color: blue;
 }
 		</style>
 	</head>
@@ -38,7 +43,8 @@ label.target
 {
 	$(function($)
 	{
-		$(":checkbox,:radio").labels().addClass("target");
+		$(":checkbox").labels().addClass("checkbox");
+		$(":radio").labels().addClass("radio");
 	});
 })(jQuery, window);
 		</script>
