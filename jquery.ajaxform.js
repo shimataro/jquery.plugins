@@ -45,8 +45,7 @@
 					// overwrite some options
 					for(var key in attrs)
 					{
-						var attr = attrs[key];
-						var value = $form.attr(attr);
+						var value = $form.attr(attrs[key]);
 						if(value !== undefined)
 						{
 							options[key] = value;
