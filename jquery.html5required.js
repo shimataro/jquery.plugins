@@ -27,14 +27,27 @@
 				return this
 					.bind("submit", function(event)
 					{
-						$(this)
-							.find(":input[required]")
+						var $form = $(this);
+						if($form.attr("novalidate") !== undefined)
+						{
+							return true;
+						}
+
+						$form
+							.find(":input:visible:enabled[required]")
 							.each(function()
 							{
 								var $target = $(this);
+								if($target.attr("readonly"))
+								{
+									// passed
+									return true;
+								}
+
 								var value = $target.val();
 								if(value !== "")
 								{
+									// passed
 									return true;
 								}
 
