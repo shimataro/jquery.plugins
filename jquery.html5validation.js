@@ -36,6 +36,14 @@
 					return (value === "") || (value <= attr);
 				}
 			};
+			// delete attributes that browser supports natively
+			for(var attrName in _validateFunctions)
+			{
+				if(input[attrName] !== undefined)
+				{
+					delete _validateFunctions[attrName];
+				}
+			}
 
 			return function()
 			{
@@ -51,12 +59,6 @@
 						var $targets = $form.find(":input:visible:enabled:not([readonly])");
 						for(var attrName in _validateFunctions)
 						{
-							if(input[attrName] !== undefined)
-							{
-								// do not check when browser supports attrName natively
-								continue;
-							}
-
 							var result = true;
 							$targets.filter("[" + attrName + "]").each(function()
 							{
