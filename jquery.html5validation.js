@@ -5,7 +5,7 @@
 
 	$.fn.extend({
 		/**
-		 * Emulates HTML5 validation (required, pattern)
+		 * Emulates HTML5 validation (required, pattern, min, max)
 		 * requires:
 		 *  jQuery 1.3+
 		 * caution:
@@ -18,9 +18,8 @@
 
 			// validation functions
 			var _validate = {
-				required: function($target)
+				required: function($target, value)
 				{
-					var value = $target.val();
 					if(value !== "")
 					{
 						// passed
@@ -28,9 +27,8 @@
 					}
 					return false;
 				},
-				pattern: function($target)
+				pattern: function($target, value)
 				{
-					var value   = $target.val();
 					var pattern = $target.attr("pattern");
 					var re = new RegExp("^(?:" + pattern + ")$");
 					if(re.test(value))
@@ -39,6 +37,16 @@
 						return true;
 					}
 					return false;
+				},
+				min: function($target, value)
+				{
+					var min = $target.attr("min");
+					return value >= min;
+				},
+				max: function($target, value)
+				{
+					var max = $target.attr("max");
+					return value <= max;
 				}
 			};
 
@@ -55,7 +63,7 @@
 
 						var $targets = $form.find(":input:visible:enabled:not([readonly])");
 						var result = true;
-						$.each(["required", "pattern"], function()
+						$.each(["required", "pattern", "min", "max"], function()
 						{
 							var attrName = this;
 							if(input[attrName] !== undefined)
@@ -68,7 +76,8 @@
 							$targets.filter(selector).each(function()
 							{
 								var $target = $(this);
-								if(_validate[attrName]($target))
+								var value   = $target.val();
+								if(_validate[attrName]($target, value))
 								{
 									// passed
 									return true;

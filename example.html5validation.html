@@ -11,11 +11,15 @@
 		<form action="#">
 			<fieldset>
 				<legend>required</legend>
-				<input type="search" name="search" required="required" data-required-error="fill the search box" />
+				<input type="search" required="required" data-required-error="fill the search box" />
 			</fieldset>
 			<fieldset>
 				<legend>pattern</legend>
-				<input type="search" name="search" value="abc123" pattern="\d*" data-pattern-error="input number only" />
+				<input type="search" value="abc123" pattern="\d*" data-pattern-error="input number only" />
+			</fieldset>
+			<fieldset>
+				<legend>min / max</legend>
+				<input type="number" value="0" min="1" max="10" data-min-error="must be at least 1" data-max-error="must be at most 10" />
 			</fieldset>
 			<input type="submit" />
 		</form>
