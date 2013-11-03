@@ -14,8 +14,6 @@
 		 */
 		html5validation: (function($)
 		{
-			var input = document.createElement("input");
-
 			// validation functions
 			var _validateFunctions = {
 				required: function(value, attr)
@@ -36,10 +34,12 @@
 					return (value === "") || (value <= attr);
 				}
 			};
+
 			// delete attributes that browser supports natively
+			var input = document.createElement("input");
 			for(var attrName in _validateFunctions)
 			{
-				if(input[attrName] !== undefined)
+				if(attrName in input)
 				{
 					delete _validateFunctions[attrName];
 				}
