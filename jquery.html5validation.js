@@ -44,8 +44,9 @@
 				return (input.type === typeName);
 			};
 		})($)
-	})
-	.extend({
+	});
+
+	$.extend({
 		/**
 		 * Emulates autofocus attribute
 		 * requires:
