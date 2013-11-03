@@ -25,15 +25,15 @@
 				pattern: function(value, attr)
 				{
 					var re = new RegExp("^(?:" + attr + ")$");
-					return re.test(value);
+					return (value === "") || re.test(value);
 				},
 				min: function(value, attr)
 				{
-					return value >= attr;
+					return (value === "") || (value >= attr);
 				},
 				max: function(value, attr)
 				{
-					return value <= attr;
+					return (value === "") || (value <= attr);
 				}
 			};
 
