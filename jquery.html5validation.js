@@ -163,5 +163,6 @@
 	$(function($)
 	{
 		$.autofocus();
+		$("form").html5validation();
 	});
 })(jQuery, window);
