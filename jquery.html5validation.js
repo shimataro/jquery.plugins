@@ -72,7 +72,7 @@
 								}
 
 								// alert error message
-								var message = $target.attr("data-" + attrName + "-error");
+								var message = $target.attr(attrName + "-error");
 								if(message !== undefined)
 								{
 									window.alert(message);
