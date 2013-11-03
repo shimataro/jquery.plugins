@@ -20,23 +20,13 @@
 			var _validate = {
 				required: function($target, value)
 				{
-					if(value !== "")
-					{
-						// passed
-						return true;
-					}
-					return false;
+					return (value !== "");
 				},
 				pattern: function($target, value)
 				{
 					var pattern = $target.attr("pattern");
 					var re = new RegExp("^(?:" + pattern + ")$");
-					if(re.test(value))
-					{
-						// passed
-						return true;
-					}
-					return false;
+					return re.test(value);
 				},
 				min: function($target, value)
 				{
