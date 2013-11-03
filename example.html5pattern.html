@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Example of jquery.html5pattern</title>
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<h1>Example of jquery.html5pattern</h1>
+		<form action="#">
+			<label for="id_search">number search</label>
+			<input type="search" id="id_search" name="search" value="aaa" pattern="\d+" data-pattern-error="input number only" />
+			<input type="submit" />
+		</form>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.3.js"></script>
+		<script type="text/javascript" src="jquery.html5pattern.js"></script>
+		<script type="text/javascript">
+(function($, window)
+{
+	$(function($)
+	{
+		$("form").html5Pattern();
+	});
+})(jQuery, window);
+		</script>
+	</body>
+</html>
