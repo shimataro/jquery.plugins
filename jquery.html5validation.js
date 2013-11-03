@@ -3,9 +3,46 @@
 {
 	var document = window.document;
 
+	$.extend({
+		/**
+		 * Check whether browser supports specified attribute or not.
+		 * @function
+		 * @param {String} elementName element name to be checked
+		 * @param {String} attrName    attribute name to be checked
+		 * @return {Boolean} Yes/No
+		 */
+		isSupportedAttribute: (function($)
+		{
+			var elements = {};
+			return function(elementName, attrName)
+			{
+				if(!(elementName in elements))
+				{
+					elements[elementName] = document.createElement(elementName);
+				}
+				return (attrName in elements[elementName]);
+			};
+		})($),
+		/**
+		 * Check whether browser supports specified input type or not.
+		 * @function
+		 * @param {String} typeName type name to be checked
+		 * @return {Boolean} Yes/No
+		 */
+		isSupportedInputType: (function($)
+		{
+			var input = document.createElement("input");
+			return function(typeName)
+			{
+				input.setAttribute("type", typeName);
+				return (input.type === typeName);
+			};
+		})($)
+	});
+
 	$.fn.extend({
 		/**
-		 * Emulates HTML5 validation (required, pattern, min, max) and autofocus attribute
+		 * Emulates HTML5 validation (required, pattern, min, max)
 		 * requires:
 		 *  Browser: Internet Explorer(6+), Firefox(latest), Google Chrome(latest), Opera(12, 15)
 		 *  jQuery: 1.3+
@@ -37,22 +74,12 @@
 			};
 
 			// delete attributes that browser supports natively
-			var input = document.createElement("input");
 			for(var attrName in validateFunctions)
 			{
-				if(attrName in input)
+				if($.isSupportedAttribute("input", attrName))
 				{
 					delete validateFunctions[attrName];
 				}
-			}
-
-			// ...and emulates autofocus
-			if(!("autofocus" in input))
-			{
-				$(function($)
-				{
-					$(":input:visible:enabled[autofocus]:first").trigger("focus");
-				});
 			}
 
 			return function()
@@ -106,4 +133,15 @@
 			};
 		})($)
 	});
+
+	/**
+	 * Emulates autofocus
+	 */
+	if(!$.isSupportedAttribute("input", "autofocus"))
+	{
+		$(function($)
+		{
+			$(":input:visible:enabled:not([readonly])[autofocus]:first").trigger("focus");
+		});
+	}
 })(jQuery, window);
