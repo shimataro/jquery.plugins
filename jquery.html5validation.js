@@ -6,6 +6,9 @@
 	$.extend({
 		/**
 		 * Check whether browser supports specified attribute or not.
+		 * requires:
+		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
+		 *  jQuery: 1.0+
 		 * @function
 		 * @param {String} elementName element name to be checked
 		 * @param {String} attrName    attribute name to be checked
@@ -25,6 +28,9 @@
 		})($),
 		/**
 		 * Check whether browser supports specified input type or not.
+		 * requires:
+		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
+		 *  jQuery: 1.0+
 		 * @function
 		 * @param {String} typeName type name to be checked
 		 * @return {Boolean} Yes/No
