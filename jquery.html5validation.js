@@ -18,25 +18,22 @@
 
 			// validation functions
 			var _validate = {
-				required: function($target, value)
+				required: function(value, attr)
 				{
 					return (value !== "");
 				},
-				pattern: function($target, value)
+				pattern: function(value, attr)
 				{
-					var pattern = $target.attr("pattern");
-					var re = new RegExp("^(?:" + pattern + ")$");
+					var re = new RegExp("^(?:" + attr + ")$");
 					return re.test(value);
 				},
-				min: function($target, value)
+				min: function(value, attr)
 				{
-					var min = $target.attr("min");
-					return value >= min;
+					return value >= attr;
 				},
-				max: function($target, value)
+				max: function(value, attr)
 				{
-					var max = $target.attr("max");
-					return value <= max;
+					return value <= attr;
 				}
 			};
 
@@ -55,7 +52,7 @@
 						var result = true;
 						$.each(["required", "pattern", "min", "max"], function()
 						{
-							var attrName = this;
+							var attrName = this.toString();
 							if(input[attrName] !== undefined)
 							{
 								// do not check when browser supports attrName natively
@@ -67,7 +64,8 @@
 							{
 								var $target = $(this);
 								var value   = $target.val();
-								if(_validate[attrName]($target, value))
+								var attr    = $target.attr(attrName);
+								if(_validate[attrName](value, attr))
 								{
 									// passed
 									return true;
