@@ -15,7 +15,7 @@
 		html5validation: (function($)
 		{
 			// validation functions
-			var _validateFunctions = {
+			var validateFunctions = {
 				required: function(value, attr)
 				{
 					return (value !== "");
@@ -37,11 +37,11 @@
 
 			// delete attributes that browser supports natively
 			var input = document.createElement("input");
-			for(var attrName in _validateFunctions)
+			for(var attrName in validateFunctions)
 			{
 				if(attrName in input)
 				{
-					delete _validateFunctions[attrName];
+					delete validateFunctions[attrName];
 				}
 			}
 
@@ -57,7 +57,7 @@
 						}
 
 						var $targets = $form.find(":input:visible:enabled:not([readonly])");
-						for(var attrName in _validateFunctions)
+						for(var attrName in validateFunctions)
 						{
 							var result = true;
 							$targets.filter("[" + attrName + "]").each(function()
@@ -65,13 +65,11 @@
 								var $target = $(this);
 								var value   = $target.val();
 								var attr    = $target.attr(attrName);
-								if(_validateFunctions[attrName](value, attr))
+								if(validateFunctions[attrName](value, attr))
 								{
 									// passed
 									return true;
 								}
-
-								result = false;
 
 								// alert error message
 								var message = $target.attr("data-" + attrName + "-error");
@@ -82,13 +80,13 @@
 
 								// focus and select
 								$target.trigger("focus").trigger("select");
-
-								// cancel remaining event handlers
-								event.stopImmediatePropagation();
+								result = false;
 								return false;
 							});
 							if(!result)
 							{
+								// cancel remaining event handlers
+								event.stopImmediatePropagation();
 								return false;
 							}
 						}
