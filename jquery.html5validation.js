@@ -17,7 +17,7 @@
 			var input = document.createElement("input");
 
 			// validation functions
-			var _validate = {
+			var _validateFunctions = {
 				required: function(value, attr)
 				{
 					return (value !== "");
@@ -49,23 +49,21 @@
 						}
 
 						var $targets = $form.find(":input:visible:enabled:not([readonly])");
-						var result = true;
-						$.each(["required", "pattern", "min", "max"], function()
+						for(var attrName in _validateFunctions)
 						{
-							var attrName = this.toString();
 							if(input[attrName] !== undefined)
 							{
 								// do not check when browser supports attrName natively
-								return true;
+								continue;
 							}
 
-							var selector = "[" + attrName + "]";
-							$targets.filter(selector).each(function()
+							var result = true;
+							$targets.filter("[" + attrName + "]").each(function()
 							{
 								var $target = $(this);
 								var value   = $target.val();
 								var attr    = $target.attr(attrName);
-								if(_validate[attrName](value, attr))
+								if(_validateFunctions[attrName](value, attr))
 								{
 									// passed
 									return true;
@@ -87,13 +85,15 @@
 								event.stopImmediatePropagation();
 								return false;
 							});
-							return result;
-						});
-						return result;
+							if(!result)
+							{
+								return false;
+							}
+						}
+						return true;
 					})
 				;
 			};
 		})($)
 	});
 })(jQuery, window);
-
