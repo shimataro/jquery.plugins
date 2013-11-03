@@ -7,7 +7,8 @@
 		/**
 		 * Emulates HTML5 validation (required, pattern, min, max)
 		 * requires:
-		 *  jQuery 1.3+
+		 *  Browser: Internet Explorer(6+), Firefox(latest), Google Chrome(latest), Opera(12, 15)
+		 *  jQuery: 1.3+
 		 * caution:
 		 *  "formnovalidate" is not supported
 		 * @function
