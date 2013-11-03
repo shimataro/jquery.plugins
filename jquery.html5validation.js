@@ -5,7 +5,7 @@
 
 	$.fn.extend({
 		/**
-		 * Emulates HTML5 validation (required, pattern, min, max)
+		 * Emulates HTML5 validation (required, pattern, min, max) and autofocus attribute
 		 * requires:
 		 *  Browser: Internet Explorer(6+), Firefox(latest), Google Chrome(latest), Opera(12, 15)
 		 *  jQuery: 1.3+
@@ -44,6 +44,15 @@
 				{
 					delete validateFunctions[attrName];
 				}
+			}
+
+			// ...and emulates autofocus
+			if(!("autofocus" in input))
+			{
+				$(function($)
+				{
+					$(":input:visible:enabled[autofocus]:first").trigger("focus");
+				});
 			}
 
 			return function()
