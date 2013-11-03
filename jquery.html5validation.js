@@ -44,6 +44,26 @@
 				return (input.type === typeName);
 			};
 		})($)
+	})
+	.extend({
+		/**
+		 * Emulates autofocus attribute
+		 * requires:
+		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
+		 *  jQuery: 1.0+
+		 * @function
+		 */
+		autofocus: (function($)
+		{
+			return function()
+			{
+				if(!$.isSupportedAttribute("input", "autofocus"))
+				{
+					$(":input:visible:enabled:not([readonly])[autofocus]:first").trigger("focus");
+				}
+				return this;
+			};
+		})($)
 	});
 
 	$.fn.extend({
@@ -140,14 +160,8 @@
 		})($)
 	});
 
-	/**
-	 * Emulates autofocus
-	 */
-	if(!$.isSupportedAttribute("input", "autofocus"))
+	$(function($)
 	{
-		$(function($)
-		{
-			$(":input:visible:enabled:not([readonly])[autofocus]:first").trigger("focus");
-		});
-	}
+		$.autofocus();
+	});
 })(jQuery, window);
