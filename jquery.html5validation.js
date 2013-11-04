@@ -142,7 +142,7 @@
 		 * Emulates autofocus attribute
 		 * requires:
 		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
-		 *  jQuery: 1.0+
+		 *  jQuery: 1.2+
 		 * @function
 		 * @param {Boolean} skipIfNative skip emulation if browser supports autofocus natively
 		 */

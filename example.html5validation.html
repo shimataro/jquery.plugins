@@ -43,9 +43,22 @@
 			</fieldset>
 			<input type="submit" />
 			<input type="reset" />
+			<input type="button" id="autofocus" value="autofocus" />
 		</form>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.3.js"></script>
 		<script type="text/javascript" src="jquery.html5validation.js"></script>
+		<script type="text/javascript">
+(function($, window)
+{
+	$(function($)
+	{
+		$("#autofocus").bind("click", function()
+		{
+			$(this).closest("form").autofocus();
+		});
+	});
+})(jQuery, window);
+		</script>
 	</body>
 </html>
