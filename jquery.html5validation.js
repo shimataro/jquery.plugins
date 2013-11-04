@@ -46,27 +46,6 @@
 		})($)
 	});
 
-	$.extend({
-		/**
-		 * Emulates autofocus attribute
-		 * requires:
-		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
-		 *  jQuery: 1.0+
-		 * @function
-		 */
-		autofocus: (function($)
-		{
-			return function()
-			{
-				if(!$.isSupportedAttribute("input", "autofocus"))
-				{
-					$(":input:visible:enabled:not([readonly])[autofocus]:first").trigger("focus");
-				}
-				return this;
-			};
-		})($)
-	});
-
 	$.fn.extend({
 		/**
 		 * Emulates HTML5 validation (required, pattern, min, max)
@@ -158,12 +137,31 @@
 					})
 				;
 			};
+		})($),
+		/**
+		 * Emulates autofocus attribute
+		 * requires:
+		 *  Browser: Internet Explorer(6+), Firefox, Google Chrome, Opera
+		 *  jQuery: 1.0+
+		 * @function
+		 * @param {Boolean} skipIfNative skip emulation if browser supports autofocus natively
+		 */
+		autofocus: (function($)
+		{
+			return function(skipIfNative)
+			{
+				if(!skipIfNative || !$.isSupportedAttribute("input", "autofocus"))
+				{
+					this.find(":input:visible:enabled:not([readonly])[autofocus]:first").trigger("focus");
+				}
+				return this;
+			};
 		})($)
 	});
 
 	$(function($)
 	{
-		$.autofocus();
+		$(document).autofocus(true);
 		$("form").html5validation();
 	});
 })(jQuery, window);
