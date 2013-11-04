@@ -1,4 +1,4 @@
-/*! jquery.html5validation.js */
+/*! jquery.html5form.js */
 (function($, window)
 {
 	var document = window.document;
@@ -59,7 +59,7 @@
 		html5validation: (function($)
 		{
 			// validation functions
-			var validateFunctions = {
+			var validationFunctions = {
 				required: function(value, attr)
 				{
 					return (value !== "");
@@ -80,11 +80,11 @@
 			};
 
 			// delete attributes that browser supports natively
-			for(var attrName in validateFunctions)
+			for(var attrName in validationFunctions)
 			{
 				if($.isSupportedAttribute("input", attrName))
 				{
-					delete validateFunctions[attrName];
+					delete validationFunctions[attrName];
 				}
 			}
 
@@ -100,7 +100,7 @@
 						}
 
 						var $targets = $form.find(":input:visible:enabled:not([readonly])");
-						for(var attrName in validateFunctions)
+						for(var attrName in validationFunctions)
 						{
 							var result = true;
 							$targets.filter("[" + attrName + "]").each(function()
@@ -108,7 +108,7 @@
 								var $target = $(this);
 								var value   = $target.val();
 								var attr    = $target.attr(attrName);
-								if(validateFunctions[attrName](value, attr))
+								if(validationFunctions[attrName](value, attr))
 								{
 									// passed
 									return true;
@@ -146,7 +146,7 @@
 		 * @function
 		 * @param {Boolean} skipIfNative skip emulation if browser supports autofocus natively
 		 */
-		autofocus: (function($)
+		html5autofocus: (function($)
 		{
 			return function(skipIfNative)
 			{
@@ -161,7 +161,7 @@
 
 	$(function($)
 	{
-		$(document).autofocus(true);
+		$(document).html5autofocus(true);
 		$("form").html5validation();
 	});
 })(jQuery, window);
